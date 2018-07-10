@@ -858,14 +858,15 @@ ATEerror_t at_ReceiveBinary(const char *param)
 
 ATEerror_t at_Receive(const char *param)
 {
+  uint8_t index = 0;
   AT_PRINTF("+RECV=");
   AT_PRINTF("%d,%d\r\n\n", ReceivedDataPort, ReceivedDataSize);
-  if (ReceivedDataSize)
+  for (index = 0; index < ReceivedDataSize; index++)
   {
-    AT_PRINTF("%s", ReceivedData);
-    ReceivedDataSize = 0;
+    AT_PRINTF("c", ReceivedData[index]);
   }
   AT_PRINTF("\r");
+  ReceivedDataSize = 0;
 
   return AT_OK;
 }
